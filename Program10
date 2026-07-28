@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        int temp = n;
+        int binary = 0;
+        int pow = 1;
+
+        while (temp > 0) {
+            int rem = temp % 2;
+            binary += rem * pow;
+            pow *= 10;
+            temp /= 2;
+        }
+
+        int rev = 0;
+        int copy = binary;
+
+        while (copy > 0) {
+            int rem = copy % 10;
+            rev = rev * 10 + rem;
+            copy /= 10;
+        }
+
+        if (binary == rev) {
+            System.out.println("Binary Palindrome");
+        } else {
+            System.out.println("Not Binary Palindrome");
+        }
+    }
+}
