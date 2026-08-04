@@ -1,0 +1,23 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        int arr[] = {-7,1,5,2,-4,3,0};
+        
+        int totalSum = 0;
+        
+        for(int i = 0;i<arr.length;i++){
+            totalSum += arr[i];
+        }
+        
+        int leftSum = 0;
+        
+        for(int i = 0;i<arr.length;i++){
+            if(leftSum == totalSum - leftSum - arr[i]){
+                System.out.println(i);
+            }
+            leftSum += arr[i];
+        }
+    }
+}
