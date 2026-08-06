@@ -1,0 +1,34 @@
+class Main {
+    public static void main(String[] args) {
+
+        int[] nums = {6, 3, -2, 4, -1, 7, -1, 5};
+
+        int prefix = Integer.MIN_VALUE;
+        int suffix = Integer.MIN_VALUE;
+
+        int prefProd = 1;
+        int sufProd = 1;
+
+        int n = nums.length;
+        int ans = Integer.MIN_VALUE;
+
+        for (int i = 0; i < n; i++) {
+
+            if (prefProd == 0)
+                prefProd = 1;
+
+            if (sufProd == 0)
+                sufProd = 1;
+
+            prefProd *= nums[i];
+            sufProd *= nums[n - 1 - i];
+
+            prefix = Math.max(prefix, prefProd);
+            suffix = Math.max(suffix, sufProd);
+
+            ans = Math.max(ans, Math.max(prefix, suffix));
+        }
+
+        System.out.println("Maximum Product = " + ans);
+    }
+}
