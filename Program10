@@ -33,3 +33,32 @@ public class Main {
         }
     }
 }
+
+
+import java.util.*;
+
+public class BinaryPalindromeChecker {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int x = sc.nextInt();
+
+        int original = x;
+        int reversed = 0;
+
+        while (x > 0) {
+
+            reversed <<= 1;       // Left shift reversed
+            reversed |= (x & 1);  // Add last bit of x
+            x >>= 1;              // Right shift x
+        }
+
+        if (reversed == original) {
+            System.out.println(original + " has a binary palindrome representation.");
+        } else {
+            System.out.println(original + " does not have a binary palindrome representation.");
+        }
+    }
+}
