@@ -1,0 +1,51 @@
+// Lexicographically 1st Palindrome String
+public class LexicographicalPalindrome {
+
+    public static void main(String[] args) {
+        String input = "malayalam";
+        String result = makePalindrome(input);
+
+        System.out.println("Original: " + input);
+        System.out.println("Palindrome: " + result);
+    }
+
+    public static String makePalindrome(String str) {
+
+        int[] freq = new int[26];
+
+        // Count frequency
+        for (char ch : str.toCharArray()) {
+            freq[ch - 'a']++;
+        }
+
+        // Check odd frequency
+        int odd = 0;
+        char middle = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] % 2 != 0) {
+                odd++;
+                middle = (char)(i + 'a');
+            }
+        }
+
+        // Palindrome not possible
+        if (odd > 1) {
+            return "Not Possible";
+        }
+
+        // Make first half in lexicographical order
+        StringBuilder first = new StringBuilder();
+
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < freq[i] / 2; j++) {
+                first.append((char)(i + 'a'));
+            }
+        }
+
+        // Make second half
+        String second = new StringBuilder(first).reverse().toString();
+
+        return first.toString() + middle + second;
+    }
+}
