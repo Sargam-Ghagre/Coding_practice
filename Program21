@@ -1,0 +1,83 @@
+import java.util.*;
+
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int d) {
+        data = d;
+        left = null;
+        right = null;
+    }
+}
+
+public class Main {
+
+    static Node build(int[] a) {
+
+        if (a.length == 0) {
+            return null;
+        }
+
+        Node root = new Node(a[0]);
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        boolean left = true;
+
+        for (int i = 1; i < a.length; i++) {
+
+            Node cur = q.peek();
+            Node child = new Node(a[i]);
+
+            if (left) {
+                cur.left = child;
+            } 
+            else {
+                cur.right = child;
+                q.poll();
+            }
+
+            q.add(child);
+            left = !left;
+        }
+
+        return root;
+    }
+
+    static void bfs(Node root) {
+
+        if (root == null) {
+            return;
+        }
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+
+            Node n = q.poll();
+
+            System.out.print(n.data + " ");
+
+            if (n.left != null) {
+                q.add(n.left);
+            }
+
+            if (n.right != null) {
+                q.add(n.right);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        int[] a = {1, 2, 3, 4, 5, 6, 7};
+
+        Node root = build(a);
+
+        bfs(root);
+    }
+}
