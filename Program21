@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 class Node {
@@ -14,70 +15,43 @@ class Node {
 
 public class Main {
 
-    static Node build(int[] a) {
+    static Node insert(Node root, int key) {
 
-        if (a.length == 0) {
-            return null;
+        if (root == null) {
+            return new Node(key);
         }
 
-        Node root = new Node(a[0]);
-
-        Queue<Node> q = new LinkedList<>();
-        q.add(root);
-
-        boolean left = true;
-
-        for (int i = 1; i < a.length; i++) {
-
-            Node cur = q.peek();
-            Node child = new Node(a[i]);
-
-            if (left) {
-                cur.left = child;
-            } 
-            else {
-                cur.right = child;
-                q.poll();
-            }
-
-            q.add(child);
-            left = !left;
+        if (key < root.data) {
+            root.left = insert(root.left, key);
+        }
+        else if (key > root.data) {
+            root.right = insert(root.right, key);
         }
 
         return root;
     }
 
-    static void bfs(Node root) {
+    static void inorder(Node r) {
 
-        if (root == null) {
+        if (r == null) {
             return;
         }
 
-        Queue<Node> q = new LinkedList<>();
-        q.add(root);
+        inorder(r.left);
 
-        while (!q.isEmpty()) {
+        System.out.print(r.data + " ");
 
-            Node n = q.poll();
-
-            System.out.print(n.data + " ");
-
-            if (n.left != null) {
-                q.add(n.left);
-            }
-
-            if (n.right != null) {
-                q.add(n.right);
-            }
-        }
+        inorder(r.right);
     }
 
     public static void main(String[] args) {
 
-        int[] a = {1, 2, 3, 4, 5, 6, 7};
+        Node bst = null;
 
-        Node root = build(a);
+        for (int k : new int[]{50, 30, 70, 20, 40, 60, 80}) {
+            bst = insert(bst, k);
+        }
 
-        bfs(root);
+        inorder(bst);
     }
 }
